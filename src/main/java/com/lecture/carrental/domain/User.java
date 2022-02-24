@@ -69,13 +69,15 @@ public class User {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
     public Set<String> getRole() {
         Set<String> roles1 = new HashSet<>();
+
         Role[] role = roles.toArray(new Role[roles.size()]);
+
         for (int i = 0; i < roles.size(); i++){
             if (role[i].getName().equals(UserRole.ROLE_ADMIN))
                 roles1.add("Administrator");
@@ -84,5 +86,4 @@ public class User {
         }
         return roles1;
     }
-
 }

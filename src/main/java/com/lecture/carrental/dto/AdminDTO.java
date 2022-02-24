@@ -1,26 +1,21 @@
 package com.lecture.carrental.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.lecture.carrental.domain.Role;
-import com.lecture.carrental.domain.enumeration.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class AdminDTO {
 
     @Size(max = 15)
     @NotNull(message = "Please enter your first name")
@@ -30,7 +25,7 @@ public class UserDTO {
     @NotNull(message = "Please enter your last name")
     private String lastName;
 
-    @JsonIgnore
+    @Size(min = 4, max = 60)
     private String password;
 
     @Pattern(regexp = "^((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$",
@@ -55,34 +50,4 @@ public class UserDTO {
     private Boolean builtIn;
 
     private Set<String> roles;
-
-    public UserDTO(String firstName, String lastName, String phoneNumber, String email,
-                   String address, String zipCode, Boolean builtIn, Set<String> roles) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.address = address;
-        this.zipCode = zipCode;
-        this.builtIn = builtIn;
-        this.roles = roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        Set<String> roles1 = new HashSet<>();
-
-        Role[] role = roles.toArray(new Role[roles.size()]);
-
-        for (int i = 0; i < roles.size(); i++){
-            if (role[i].getName().equals(UserRole.ROLE_ADMIN))
-                roles1.add("Administrator");
-            else
-                roles1.add("Customer");
-        }
-
-        this.roles = roles1;
-
-    }
-
-
 }
