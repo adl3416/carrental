@@ -29,7 +29,7 @@ public class FileDBService {
         return fileDB;
     }
 
-    public FileDB getFileById(String id) throws ResourceNotFoundException {
+    public FileDB getFileById(String id) throws ResourceNotFoundException {  // goruntulere id ile ulasmak icin
         return fileDBRepository.findById(id).get();
     }
 
